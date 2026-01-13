@@ -1,4 +1,3 @@
-# n8n-mcp-lead-qualification-agent
 # n8n MCP Lead Qualification Agent (Gemini + Google Sheets)
 
 AI-powered lead qualification automation built in **n8n** using **MCP Client + MCP Server**, integrated with **Google Gemini Chat Model**, memory, and **Google Sheets** for storing qualified leads.
@@ -59,4 +58,14 @@ The lead details are then sent through MCP and stored automatically into Google 
 ---
 
 ## 📂 Repository Structure
+
+workflows/
+MCP_Client_Lead_qualification.json
+MCP_Server_Lead_qualification.json
+
+screenshots/
+chat_demo_1.png
+chat_demo_2.png
+workflow_client.png
+workflow_server.png
 
