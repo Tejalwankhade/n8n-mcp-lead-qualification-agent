@@ -200,4 +200,69 @@ elif page == "⚙️ Setup":
         3) Add `docker-compose.yml`  
         4) Run: `docker compose up -d`  
         5) Open: `http://localhost:5678`  
-        6) Import the wo
+        6) Import the workflows JSON in n8n  
+        """
+    )
+
+    st.markdown("### docker-compose.yml")
+    st.code(
+        """
+version: "3.8"
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=Asia/Kolkata
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
+        """.strip(),
+        language="yaml"
+    )
+
+# ===========================
+# Page 5: Resume Highlights
+# ===========================
+elif page == "📌 Resume Highlights":
+    st.subheader("📌 Resume Highlights (Copy-Paste)")
+    st.markdown("### ✅ Bullet Points")
+    st.write(
+        """
+        - Built an AI-powered lead qualification agent using **n8n + MCP + Gemini**, automating real-estate lead conversations end-to-end.
+        - Designed an automation pipeline: **Chat Trigger → AI Agent → MCP Client → MCP Server → Google Sheets**, ensuring structured lead capture.
+        - Implemented **memory-based conversational flow** to collect BHK preference, schedule site visit timing, and capture lead contact details.
+        - Automated storage of qualified leads into Google Sheets for CRM-like tracking and faster sales follow-up.
+        """
+    )
+
+    st.markdown("### ✅ Skills to Mention")
+    st.markdown(
+        """
+        - n8n Automation  
+        - MCP (Model Context Protocol)  
+        - AI Agent Design  
+        - Gemini Chat Model Integration  
+        - Google Sheets Automation  
+        - Lead Qualification Workflow  
+        """
+    )
+
+    st.markdown("### 🌟 Suggested Enhancements (for next version)")
+    st.markdown(
+        """
+        ✅ Lead scoring (Hot/Warm/Cold)  
+        ✅ Phone number validation + duplicate checks  
+        ✅ WhatsApp/SMS confirmation  
+        ✅ CRM integrations (HubSpot/Zoho/Salesforce)  
+        ✅ Dashboard using Looker Studio  
+        """
+    )
+
+st.markdown("---")
+st.caption("© 2026 | Portfolio Project — AI Lead Qualification Automation")
