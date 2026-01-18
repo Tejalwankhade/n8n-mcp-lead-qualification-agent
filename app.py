@@ -204,6 +204,6 @@ elif page == "🔗 Links":
 
 st.markdown("---")
 st.caption("© 2026 | AI Automation Portfolio Project")
-    )
+
 st.markdown("---")
 st.caption("© 2026 | Portfolio Project — AI Lead Qualification Automation")
