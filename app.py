@@ -18,7 +18,7 @@ st.caption("Portfolio Demo Page • AI Workflow Automation Project")
 st.sidebar.title("📌 Navigation")
 page = st.sidebar.radio(
     "Go to",
-    ["🏠 Overview", "🧠 Architecture", "🧩 Workflow Explanation", "⚙️ Setup", "📌 Resume Highlights", "🔗 Links"]
+    ["🏠 Overview", "🧠 Architecture", "🧩 Workflow Explanation", "⚙️ Setup"]
 )
 
 # ---------------------------
