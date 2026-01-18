@@ -163,45 +163,6 @@ volumes:
     st.markdown("### ✅ Open n8n")
     st.code("http://localhost:5678")
 
-elif page == "📌 Resume Highlights":
-    st.subheader("📌 Resume / LinkedIn Highlights")
-
-    st.markdown("### ✅ Resume Bullet Points (Copy-Paste)")
-    st.write(
-        """
-        - Built an AI-powered lead qualification chatbot using **n8n + MCP + Gemini**, automating customer interaction end-to-end.
-        - Implemented workflow automation pipeline: **Chat Trigger → AI Agent → MCP Client → MCP Server → Google Sheets**.
-        - Designed memory-enabled conversation flow to collect flat preference, booking schedule, and contact details.
-        - Automated lead storage into Google Sheets for CRM-style tracking and faster sales follow-ups.
-        """
-    )
-
-    st.markdown("### ✅ Skills to Mention")
-    st.markdown(
-        """
-        - n8n Automation  
-        - MCP (Model Context Protocol)  
-        - AI Agents  
-        - Gemini Integration  
-        - Google Sheets Automation  
-        - Lead Qualification Workflows  
-        """
-    )
-
-elif page == "🔗 Links":
-    st.subheader("🔗 Project Links")
-
-    st.write("Add your GitHub repo link here so recruiters can view workflows + screenshots.")
-
-    st.markdown("### ✅ GitHub Repo")
-    st.text_input("GitHub Repo Link", "https://github.com/<your-username>/n8n-mcp-lead-qualification")
-
-    st.markdown("### ✅ LinkedIn")
-    st.text_input("LinkedIn Profile", "https://linkedin.com/in/<your-profile>")
-
-    st.markdown("### ✅ Demo Sheet (Optional)")
-    st.text_input("Google Sheets Demo Link (View Only)", "https://docs.google.com/spreadsheets/d/<sheet-id>")
-
 st.markdown("---")
 st.caption("© 2026 | AI Automation Portfolio Project")
 
