@@ -1,10 +1,5 @@
-import json
-from pathlib import Path
 import streamlit as st
 
-# ---------------------------
-# Page Config
-# ---------------------------
 st.set_page_config(
     page_title="n8n MCP Lead Qualification Agent",
     page_icon="🤖",
@@ -12,91 +7,23 @@ st.set_page_config(
 )
 
 # ---------------------------
-# Paths (YOUR exact filenames)
+# Header
 # ---------------------------
-WORKFLOW_1 = Path("workflows/MCP_Client_Lead_qualification.json")
-WORKFLOW_2 = Path("workflows/MCP_Server_Lead_qualification.json")
-
-IMG_1 = Path("screenshots/Screenshot 2026-01-13 095759.png")
-IMG_2 = Path("screenshots/Screenshot 2026-01-13 100002.png")
-IMG_3 = Path("screenshots/Screenshot 2026-01-13 100014.png")
-IMG_4 = Path("screenshots/Screenshot 2026-01-13 100110.png")
-
-# ---------------------------
-# Helper Functions
-# ---------------------------
-def load_json(path: Path):
-    if path.exists():
-        return json.loads(path.read_text(encoding="utf-8"))
-    return None
-
-def workflow_card(path: Path, title: str, desc: str):
-    wf = load_json(path)
-
-    with st.container(border=True):
-        st.markdown(f"### {title}")
-        st.write(desc)
-
-        if wf:
-            st.success("✅ Workflow file loaded successfully")
-
-            wf_name = wf.get("name", "Unknown")
-            nodes = wf.get("nodes", [])
-            node_count = len(nodes)
-
-            st.markdown("**Workflow Details**")
-            st.write(f"- **Workflow Name:** {wf_name}")
-            st.write(f"- **Total Nodes:** {node_count}")
-
-            with st.expander("🔍 View Node List"):
-                for n in nodes:
-                    st.write(f"• {n.get('name', 'Unnamed Node')}  |  `{n.get('type', 'type')}`")
-
-            st.download_button(
-                label=f"⬇️ Download {path.name}",
-                data=path.read_bytes(),
-                file_name=path.name,
-                mime="application/json",
-                use_container_width=True
-            )
-
-        else:
-            st.error(f"❌ Workflow file not found: `{path}`")
-            st.info("Tip: Upload your workflow JSON into the repo folder correctly.")
-
-
-def show_image(path: Path, title: str):
-    with st.container(border=True):
-        st.markdown(f"#### {title}")
-        if path.exists():
-            st.image(str(path), use_container_width=True)
-        else:
-            st.warning(f"Image missing: `{path}`")
-
+st.title("🤖 AI Lead Qualification Agent (n8n + MCP + Gemini)")
+st.caption("Portfolio Demo Page • AI Workflow Automation Project")
 
 # ---------------------------
 # Sidebar
 # ---------------------------
 st.sidebar.title("📌 Navigation")
 page = st.sidebar.radio(
-    "Select Section",
-    ["🏠 Overview", "🧩 Workflows", "🖼 Screenshots", "⚙️ Setup", "📌 Resume Highlights"]
+    "Go to",
+    ["🏠 Overview", "🧠 Architecture", "🧩 Workflow Explanation", "⚙️ Setup", "📌 Resume Highlights", "🔗 Links"]
 )
 
-st.sidebar.markdown("---")
-st.sidebar.markdown("### 🔗 Project Info")
-st.sidebar.write("**Project:** n8n MCP Lead Qualification Agent")
-st.sidebar.write("**Stack:** n8n · MCP · Gemini · Google Sheets")
-
 # ---------------------------
-# MAIN CONTENT
+# Pages
 # ---------------------------
-st.title("🤖 AI Lead Qualification Agent (n8n + MCP + Gemini)")
-st.caption("Portfolio Demo | End-to-end AI Lead Qualification + Google Sheets Storage")
-
-# ===========================
-# Page 1: Overview
-# ===========================
 if page == "🏠 Overview":
     col1, col2 = st.columns([1.5, 1])
 
@@ -104,22 +31,17 @@ if page == "🏠 Overview":
         st.subheader("🚀 Project Summary")
         st.write(
             """
-            This project is an AI-powered **Lead Qualification Chat Agent** built using **n8n**.
-            The agent interacts with users, captures requirements like **2BHK/3BHK/4BHK**,
-            confirms site visit booking, collects **name + mobile number**, and pushes the qualified
-            lead through **MCP** into Google Sheets automatically.
+            This project is an **AI-powered lead qualification assistant** built using **n8n**.
+            It interacts with users via chat, collects customer preferences, schedules a site visit,
+            captures contact details, and stores leads automatically into **Google Sheets**.
             """
         )
 
-        st.subheader("🎯 Use Case")
+        st.subheader("🎯 Real Use Case")
         st.write(
             """
-            **Real-estate lead qualification automation** for properties in Hinjawadi, Pune.
-            
-            It replaces manual lead collection by:
-            - automating lead conversation
-            - scheduling a visit
-            - storing structured lead data in Google Sheets (CRM style)
+            Real-estate lead qualification automation for customers interested in flats (2BHK/3BHK/4BHK).
+            This reduces manual work for sales teams and ensures structured lead capture.
             """
         )
 
@@ -127,84 +49,93 @@ if page == "🏠 Overview":
         st.subheader("✅ Key Features")
         st.markdown(
             """
-            ✅ AI-driven lead qualification chat flow  
+            ✅ AI-based chat qualification flow  
             ✅ Gemini Chat Model integration  
             ✅ Memory enabled conversation  
             ✅ MCP Client → MCP Server pipeline  
-            ✅ Automated Google Sheets storage  
+            ✅ Google Sheets CRM-style storage  
             """
         )
 
-        st.subheader("🧠 Architecture")
-        st.code(
-            """Chat Trigger → AI Agent (Gemini+Memory)
-→ MCP Client Tool → MCP Server Trigger
-→ Append Row in Google Sheets"""
+        st.subheader("🛠 Tech Stack")
+        st.markdown(
+            """
+            - n8n Workflow Automation
+            - MCP (Model Context Protocol)
+            - Google Gemini Chat Model
+            - Simple Memory
+            - Google Sheets Integration
+            """
         )
 
-    st.markdown("---")
-    st.info("✅ This Streamlit app is created to showcase n8n automation project portfolio.")
+    st.success("✅ Streamlit page is simplified for clean portfolio display.")
 
-# ===========================
-# Page 2: Workflows
-# ===========================
-elif page == "🧩 Workflows":
-    st.subheader("🧩 Workflows (Download + Import in n8n)")
-    st.write("These are the exported n8n workflow JSON files.")
+elif page == "🧠 Architecture":
+    st.subheader("🧠 System Architecture")
 
-    c1, c2 = st.columns(2)
-
-    with c1:
-        workflow_card(
-            WORKFLOW_1,
-            "✅ MCP Client Lead Qualification Workflow",
-            "Trigger: When chat message received → AI Agent (Gemini + Memory + MCP Client Tool)"
-        )
-
-    with c2:
-        workflow_card(
-            WORKFLOW_2,
-            "✅ MCP Server → Google Sheets Workflow",
-            "Trigger: MCP Server Trigger → Append row in Google Sheets"
-        )
-
-# ===========================
-# Page 3: Screenshots
-# ===========================
-elif page == "🖼 Screenshots":
-    st.subheader("🖼 Screenshots (Workflow + Chat Demo)")
-    st.write("These images demonstrate workflow design + real chat execution.")
-
-    colA, colB = st.columns(2)
-
-    with colA:
-        show_image(IMG_1, "Client Workflow (n8n canvas)")
-        show_image(IMG_2, "Chat Demo - Step 1 (BHK selection)")
-
-    with colB:
-        show_image(IMG_3, "Chat Demo - Step 2 (Booking + Contact)")
-        show_image(IMG_4, "Server Workflow (MCP Trigger → Google Sheets)")
-
-# ===========================
-# Page 4: Setup
-# ===========================
-elif page == "⚙️ Setup":
-    st.subheader("⚙️ How to Run Locally (n8n)")
-    st.write("You can run n8n locally using Docker Desktop **without a Docker account**.")
-
-    st.markdown("### ✅ Steps")
-    st.markdown(
+    st.code(
         """
-        1) Install **Docker Desktop**  
-        2) Create folder: `n8n-local/`  
-        3) Add `docker-compose.yml`  
-        4) Run: `docker compose up -d`  
-        5) Open: `http://localhost:5678`  
-        6) Import the workflows JSON in n8n  
+User Chat Input
+   ↓
+n8n Workflow 1: When Chat Message Received
+   ↓
+AI Agent (Gemini + Memory + MCP Client)
+   ↓
+MCP Server Trigger (Workflow 2)
+   ↓
+Append Lead Data to Google Sheets
+        """.strip()
+    )
+
+    st.markdown("### ✅ Why this design is good")
+    st.write(
+        """
+        - Separates **conversation logic** from **data storage logic**
+        - MCP enables flexible tool connectivity
+        - Google Sheets acts as lightweight CRM storage
         """
     )
 
-    st.markdown("### docker-compose.yml")
+elif page == "🧩 Workflow Explanation":
+    st.subheader("🧩 Workflows Included")
+
+    st.markdown("## ✅ Workflow 1: MCP Client Lead Qualification")
+    st.write(
+        """
+        **Trigger:** When chat message received  
+        **Core Nodes:** AI Agent + Gemini Chat Model + Memory + MCP Client Tool  
+        
+        **Role:**  
+        Interacts with user and collects:
+        - Flat choice: 2BHK / 3BHK / 4BHK
+        - Interest confirmation
+        - Site visit schedule time
+        - Name & mobile number
+        """
+    )
+
+    st.markdown("## ✅ Workflow 2: MCP Server → Google Sheets")
+    st.write(
+        """
+        **Trigger:** MCP Server Trigger  
+        **Core Node:** Append row in Google Sheets  
+
+        **Role:**  
+        Takes structured data from workflow 1 and saves it into Google Sheets.
+        """
+    )
+
+elif page == "⚙️ Setup":
+    st.subheader("⚙️ How to Run Locally (n8n)")
+
+    st.write(
+        """
+        You can run n8n locally without a Docker account.
+        Install Docker Desktop and run the compose file.
+        """
+    )
+
+    st.markdown("### ✅ docker-compose.yml")
     st.code(
         """
 version: "3.8"
@@ -226,18 +157,22 @@ volumes:
         language="yaml"
     )
 
-# ===========================
-# Page 5: Resume Highlights
-# ===========================
+    st.markdown("### ✅ Run")
+    st.code("docker compose up -d")
+
+    st.markdown("### ✅ Open n8n")
+    st.code("http://localhost:5678")
+
 elif page == "📌 Resume Highlights":
-    st.subheader("📌 Resume Highlights (Copy-Paste)")
-    st.markdown("### ✅ Bullet Points")
+    st.subheader("📌 Resume / LinkedIn Highlights")
+
+    st.markdown("### ✅ Resume Bullet Points (Copy-Paste)")
     st.write(
         """
-        - Built an AI-powered lead qualification agent using **n8n + MCP + Gemini**, automating real-estate lead conversations end-to-end.
-        - Designed an automation pipeline: **Chat Trigger → AI Agent → MCP Client → MCP Server → Google Sheets**, ensuring structured lead capture.
-        - Implemented **memory-based conversational flow** to collect BHK preference, schedule site visit timing, and capture lead contact details.
-        - Automated storage of qualified leads into Google Sheets for CRM-like tracking and faster sales follow-up.
+        - Built an AI-powered lead qualification chatbot using **n8n + MCP + Gemini**, automating customer interaction end-to-end.
+        - Implemented workflow automation pipeline: **Chat Trigger → AI Agent → MCP Client → MCP Server → Google Sheets**.
+        - Designed memory-enabled conversation flow to collect flat preference, booking schedule, and contact details.
+        - Automated lead storage into Google Sheets for CRM-style tracking and faster sales follow-ups.
         """
     )
 
@@ -246,22 +181,30 @@ elif page == "📌 Resume Highlights":
         """
         - n8n Automation  
         - MCP (Model Context Protocol)  
-        - AI Agent Design  
-        - Gemini Chat Model Integration  
+        - AI Agents  
+        - Gemini Integration  
         - Google Sheets Automation  
-        - Lead Qualification Workflow  
+        - Lead Qualification Workflows  
         """
     )
 
-    st.markdown("### 🌟 Suggested Enhancements (for next version)")
-    st.markdown(
-        """
-        ✅ Lead scoring (Hot/Warm/Cold)  
-        ✅ Phone number validation + duplicate checks  
-        ✅ WhatsApp/SMS confirmation  
-        ✅ CRM integrations (HubSpot/Zoho/Salesforce)  
-        ✅ Dashboard using Looker Studio  
-        """
+elif page == "🔗 Links":
+    st.subheader("🔗 Project Links")
+
+    st.write("Add your GitHub repo link here so recruiters can view workflows + screenshots.")
+
+    st.markdown("### ✅ GitHub Repo")
+    st.text_input("GitHub Repo Link", "https://github.com/<your-username>/n8n-mcp-lead-qualification")
+
+    st.markdown("### ✅ LinkedIn")
+    st.text_input("LinkedIn Profile", "https://linkedin.com/in/<your-profile>")
+
+    st.markdown("### ✅ Demo Sheet (Optional)")
+    st.text_input("Google Sheets Demo Link (View Only)", "https://docs.google.com/spreadsheets/d/<sheet-id>")
+
+st.markdown("---")
+st.caption("© 2026 | AI Automation Portfolio Project")
+
     )
 
 st.markdown("---")
